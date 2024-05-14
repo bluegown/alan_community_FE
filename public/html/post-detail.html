@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css"
+  />
+    <link rel="stylesheet" type="text/css" href="../css/post-detail.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+
+    <title>게시글 상세조회</title>
+</head>
+<body>
+  <div style = "height : 20px;"></div>
+  <div class = "move">
+  <div class="headtitle">
+      <button class = "go-behind" id = "behind">&lt;</button>
+      <p class="title">아무 말 대잔치</p>
+      <img src="/images/Cute.PNG" style="width: 36px; height:36px;" class = "image" /> 
+    </div>
+  </div>
+  <div style = "height : 30px;"></div>    
+  <div class = "horizontal-line"></div>
+
+  <div style = "height : 8px;"></div>
+  
+
+  <div id = "modal">
+    <div class = "modal_popup">
+      <h2 id = "separate" style = "font-size:24px; font-weight:700; padding:50px 0 30px 0;">댓글을 삭제하시겠습니까?</h2>
+      <p style = "font-size:20px; font-weight: 400;">삭제한 내용은 복구할 수 없습니다.</p>
+      <div style = "padding:30px 0 30px 0;">
+      <button type = "button"  id = "cancel">취소</button>
+      <button type = "button"  id = "post-delete">확인</button>
+    </div>
+    </div>
+    </div>
+  </div> <!-- 모달창 , 댓글 모달창에서도 다시 재활용할것-->
+
+  <form class = "functions" form method = "post" action = "Server URL">
+    <br>
+    <p class = "post-title" >&nbsp;&nbsp;제목 1</p><br>
+    <div class = "box-info">
+    <div class = "writer-info">
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <div style = "border-radius : 50%; width:36px; height: 36px; background-color: #d9d9d9;"></div>
+    <div style = "padding-left: 10px;"></div>
+    <div style = "font-weight: bold" style = "padding-right: 10px;" id = "nickName">더미 작성자 1</div>
+    <div style = "padding-left: 30px;"></div>
+    <div id = "dates">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2021-01-01 00:00:00</div>
+</div>
+<div class = "buttons">
+    <button type = "button" class = "fix">수정</button>
+    &nbsp;&nbsp;&nbsp;
+    <button type = "button" class = "delete">삭제</button>
+  </div>
+    </div>
+<div style = "height : 15px;"></div>
+<div class = "horizontal-line2"></div>
+
+<div style = "height : 10px;"></div>
+<div class = "writer-info">
+    <img id = "fix-image" src = "/images/Sakura.jpeg" style = "width: 544px; height : 306px; ">
+</div>
+<div style = "height:15px"></div>
+<a class = "memo">
+<div id = "inputText" style = "width : 544px; height:231px;  border:1px; font-size:15px;"></div>
+</a>
+<div style = "height:25px"></div>
+
+<div class = "post-info">
+<div class = "views" >
+  <a id = "number" style = "font-size:20px;">123</a>
+  <div style = "height:5px"></div>
+  <a id = "조회수" style = "font-size:16px;">조회수</a>
+</div>
+<div style = "width : 15px;"></div>
+<div class = "comment-info">
+  <a id = "number2" style = "font-size:20px;">123</a>
+  <div style = "height:5px"></div>
+  <a id = "조회수" style = "font-size:16px;">댓글</a>
+
+   </div>
+
+</div>
+<div style = "height : 25px;"></div>
+
+<div class = "box01">
+<br>
+<textarea id = 'intext' placeholder = "&nbsp;&nbsp;댓글을 남겨주세요!"type = 'text' placeholder = "&nbsp;&#13;&#10; 내용을 입력해주세요." style = "position : relative; width: 580px; height:80px; font-size:14px;"></textarea>
+<div class = "horizontal-line2"></div>
+<div class= "post">
+  <input type = "button" value = "댓글 등록" class = "button" id = "comment-button"/>
+</div>
+</div>
+<div style = "height : 1px;"></div>
+<div class = "functions" id = "parent">
+
+  
+</div>
+  
+ 
+
+</div>
+
+
+      
+
+</form>
+
+      
+    
+
+
+
+
+<!-- 여기는 댓글 등록으로 쓰자
+
+--> 
+
+</form>
+
+  
+  
+  
+<!-- 완성은 시켜뒀지만 ,, 펭귄 그림이랑 작성버튼 상대경로로 바꿔주는게 필요하다-->
+
+</body>
+<script src = ../js/post-detail.js></script>
+</html>

@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+.noto-serif kr-regular {
+    font-family: "Noto Serif KR", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  body{
+    background-color : #F4F5F7;
+  }
+
+  .go-behind{
+    
+    position:relative;
+    left : -165px;
+  }
+.horizontal-line {
+    position: relative;
+    width: 100%; /* 수평선이 화면 전체 너비를 가지도록 설정 */
+    height: 2px; /* 수평선의 높이 설정 *position : relative;*/
+    background-color: #000000; 
+} /* 문제 없음 */
+
+
+.headtitle {
+    display: flex;
+    justify-content:center;
+    font-size:32px;
+    font-family: "Noto Serif KR", serif;
+  }
+  
+  .title{
+    text-align: center; /* 텍스트 가운데 정렬 */
+    
+  }
+  
+  .image {
+    position : relative;
+    left : 165px; /* 이건 대강 박스사이즈 보고 결정할것 */
+    border-radius: 50%;
+  }
+  .back{
+    position : relative;
+    left : -360px; /* 이건 대강 박스사이즈 보고 결정할것 */
+  }
+  
+.horizontal-line {
+  bottom : -50px;
+  position: relative;
+  width: 100%; /* 수평선이 화면 전체 너비를 가지도록 설정 */
+  height: 1px; /* 수평선의 높이 설정 *position : relative;*/
+  background-color:rgba(0, 0, 0, 0.16);
+} /* 문제 없음 */
+.introduce {
+
+  text-align: center; /* 텍스트만 가운데 정렬해주면 된다 */
+  font-size : 24px;
+}
+.highlight{
+  font-weight: bold;
+}
+.title-length{
+  font-size:24px;
+   /* 좌측으로 20px만큼 */
+   margin : 0 0 20px 0;
+  
+}
+.image {
+  position : relative;
+  left : 165px; /* 이건 대강 박스사이즈 보고 결정할것 */
+}
+
+.post{
+  position : relative;
+  left: 228px; /* 원하는 만큼 가로 방향으로 이동합니다. */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  
+
+}
+#write-post:hover{
+  background-color: #7F6AEE;
+}
+.button{
+  width : 138px;
+  height : 39px;
+  
+  background-color :#ACA0EB;
+  border-radius:16px;
+  border : 1px;
+  color: white;
+  font-weight: bold;
+}
+.box01{
+    width: 592px;
+    height : 169px;
+
+    background-color: #FFFFFF;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 16px;
+
+    margin-left: auto;
+    margin-right: auto;
+    color: #000000;
+    text-align: left;
+    font-size : 24px;
+    font-weight : bold;
+}
+
+.box-info{
+  font-weight : 400;
+  font-size : 14px;
+  line-height:18.2px;
+  display : flex;
+  justify-content : space-between;
+  align-items:center;
+
+}
+
+.horizontal-line2{
+    height: 1px; /* 수평선의 높이 설정 *position : relative;*/
+    border : 1px;
+    background-color: #d9d9d9; 
+} /* 문제 없음 */
+
+.writer-info{
+  position : relative;
+  bottom : -68px;
+  font-weight : 400;
+  font-size : 14px;
+  line-height:18.2px;
+  display : flex;
+  align-items:center;
+  
+
+}
+
+.profile-image{
+  border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            background-color: #d9d9d9;
+
+
+}
