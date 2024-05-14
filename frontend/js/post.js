@@ -8,10 +8,14 @@ const titleLengthCheck = (element)=>{
 
   }
   return element;
-}
-
+};
 const p = document.getElementById("write-post");
-
+const lengthCheck = (element) => {
+  if (element >= 100000) return "100K";
+  if (element >= 10000) return "10K";
+  if (element >= 1000) return "1K";
+  return element;
+};
 p.addEventListener("click", () => {
   window.location.href = "write-post";
 }); // 게시물 작성 클릭 -> 이동 부분
@@ -81,15 +85,9 @@ fetch("../data.json")
 
      
 
-      box01.addEventListener("click", () => {
-
-
-          // URL로 이동
+      box01.addEventListener("click", () => {      // URL로 이동
           window.location.href = `post-detail?id=${item.post_id}`; // 이렇게 하면 된다!!
-
-        
-        
-        // 여기서 이제 postid 받아와서 -> post-detail/{post_id};로 이동시킨다.
+  // 여기서 이제 postid 받아와서 -> post-detail/{post_id};로 이동시킨다.
       });
     });
   })

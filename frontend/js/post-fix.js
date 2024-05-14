@@ -73,7 +73,7 @@ return response.json();
 .then((data) => {
  
   setTimeout(function () {
-    window.location.href = `post-detail.html?id=${postId}`; // 일정 시간 후에 페이지 이동
+    window.location.href = `post-detail?id=${postId}`; // 일정 시간 후에 페이지 이동
     }, 2000); 
 
 

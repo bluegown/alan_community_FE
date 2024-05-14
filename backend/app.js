@@ -1,18 +1,17 @@
 // express 모듈을 불러옵니다.
 const fs = require("fs");
-// 웹 서버가 사용할 포트 번호를 정의합니다.
 const port = 3000;
 const express = require("express");
 const path = require("path");
 const app = express();
 // 정적 파일을 제공할 경로를 설정합니다.
-const publicPath = path.join(__dirname, "public");
-app.use(express.static(publicPath));
+
+const publicPath = path.join(__dirname);
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(express.json({ extended: true }));
 const session = require('express-session');
-const userController = require("./src/controller.js");
+const userController = require("./controller.js");
 const cors = require('cors');
 // 여기는 그냥 날짜설정 코드 / 
 // Express 애플리케이션에 정적 파일 제공 설정 

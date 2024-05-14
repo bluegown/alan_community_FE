@@ -12,7 +12,7 @@ const helperText = document.getElementById('help'); // *helper text
 const image = document.querySelector('#input-file'); // image 첨부 파일
 let titleCheck = false;
 let intextCheck = false; // 디폴트값을 false로 설정
-const lengthCheck = (element) => (element =="")
+const lengthCheck = (element) => !(element =="")
    
 title.addEventListener('input',() =>{
     title = document.getElementById('title');  // 제목 버튼

@@ -1,7 +1,7 @@
 {
   "info": [
     {
-      "post_id": "0",
+      "post_id": 0,
       "title": "제목 1",
       "likes": 10851,
       "comments": 305,
@@ -12,7 +12,7 @@
       "innerText": "제목: 오늘의 여행 일기 내용: 오늘은 힐링 여행을 다녀왔습니다. 아름다운 자연 풍경과 맛있는 음식을 많이 먹었어요!"
     },
     {
-      "post_id": "1",
+      "post_id": 1,
       "title": "제목 2",
       "likes": 75321,
       "comments": 6161,
@@ -23,7 +23,7 @@
       "innerText": "오늘 하루는 원래 늦잠데이였는데 잠을 얼마 못잤다. 내일은 점심먹기전까지 진짜 잘거다. 아무도 날 말리지 못해."
     },
     {
-      "post_id": "2",
+      "post_id": 2,
       "title": "제목 3",
       "likes": 100000,
       "comments": 30000,
@@ -31,10 +31,10 @@
       "nickname": "더미 작성자 3",
       "dates": "2024-04-08 21:39:22",
       "img": "data:image/jpeg;base64,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",
-      "innerText": "벌써 카클스에 참여한지 3주정도가 되어간다. 시간 진짜 빠르다. 눈감았다뜨면 제주도에 가있다가 ,, 졸업이 코앞이겠네"
+      "innerText": "벌써 카클스에 참여한지 3주정도가 되어간다. 시간 진짜 빠르다. 눈감았다뜨면 제주도에 가있다가 ,, 졸업이 코앞이겠네bbbbgsagds"
     },
     {
-      "post_id": "3",
+      "post_id": 3,
       "title": "제목 4",
       "likes": 51,
       "comments": 5,
@@ -116,49 +116,49 @@
       "comment_number": 1
     },
     {
-      "post_id": "5",
+      "post_id": 5,
       "nickname": "임시 댓글 작성자",
       "dates": "2024-05-10 20:41:11",
       "comment_detail": "포켓몬이당 ",
       "comment_number": 1
     },
     {
-      "post_id": "5",
+      "post_id": 5,
       "nickname": "임시 댓글 작성자",
       "dates": "2024-05-10 20:41:11",
       "comment_detail": "포켓몬이당 ",
       "comment_number": 1
     },
     {
-      "post_id": "5",
+      "post_id": 5,
       "nickname": "임시 댓글 작성자",
       "dates": "2024-05-10 20:41:11",
       "comment_detail": "포켓몬이당 ",
       "comment_number": 1
     },
     {
-      "post_id": "5",
+      "post_id": 5,
       "nickname": "임시 댓글 작성자",
       "dates": "2024-05-10 20:41:11",
       "comment_detail": "포켓몬이당 ",
       "comment_number": 1
     },
     {
-      "post_id": "5",
+      "post_id": 5,
       "nickname": "임시 댓글 작성자",
       "dates": "2024-05-10 20:41:11",
       "comment_detail": "포켓몬이당 ",
       "comment_number": 1
     },
     {
-      "post_id": "5",
+      "post_id": 5,
       "nickname": "임시 댓글 작성자",
       "dates": "2024-05-10 20:41:11",
       "comment_detail": "포켓몬이당 ",
       "comment_number": 1
     },
     {
-      "post_id": "5",
+      "post_id": 5,
       "nickname": "임시 댓글 작성자",
       "dates": "2024-05-10 20:41:11",
       "comment_detail": "포켓몬이당 ",
@@ -167,40 +167,9 @@
     {
       "post_id": "0",
       "nickname": "임시 댓글 작성자",
-      "dates": "2024-05-10 21:06:52",
-      "comment_detail": "ㅎㅎ",
-      "comment_number": 1
-    },
-    {
-      "post_id": "0",
-      "nickname": "임시 댓글 작성자",
-      "dates": "2024-05-10 21:06:52",
-      "comment_detail": "zzz",
-      "comment_number": 2
-    },
-    {
-      "post_id": "0",
-      "nickname": "임시 댓글 작성자",
-      "dates": "2024-05-10 21:06:52",
+      "dates": "2024-05-14 21:57:14",
       "comment_detail": "ㅋㅋㅋ",
-      "comment_number": 3
-<<<<<<< HEAD
-=======
-    },
-    {
-      "post_id": "0",
-      "nickname": "임시 댓글 작성자",
-      "dates": "2024-05-14 17:03:51",
-      "comment_detail": "끌어당겨",
-      "comment_number": 4
-    },
-    {
-      "post_id": "0",
-      "nickname": "임시 댓글 작성자",
-      "dates": "2024-05-14 17:03:51",
-      "comment_detail": "끌어당겨",
-      "comment_number": 5
->>>>>>> c2ccec0 (fixed2)
+      "comment_number": 1
     }
   ]
 }

@@ -4,7 +4,8 @@
 // 4번조건 구현 완료
 // 5번조건도 구현 완료(사실 좀빵꾸나긴했는데 되긴됨)
 const checkButton = document.getElementById('post-delete');
-
+const urlParams = new URLSearchParams(window.location.search);
+const postId = urlParams.get("id");
 
 const lengthCheck = (element) => {
   if (element >= 100000) return "100K";
@@ -160,7 +161,7 @@ const writeComment = (elements) => {
 
 const b = document.getElementById("behind");
 b.addEventListener("click", () => {
-  window.location.href = "post.html";
+  window.location.href = "post";
 });
 
 const deleteButton = document.getElementsByClassName("delete");
@@ -189,6 +190,9 @@ return response.json();
   console.log(data);
 })
 
+
+
+};
 const deleteEventListener = () => {
 
   for (let i = 0; i < deleteButton.length; i++) {
@@ -216,12 +220,8 @@ const deleteEventListener = () => {
 
 }
 
-};
-
-
 const cancelButton = document.getElementById("cancel");
-const urlParams = new URLSearchParams(window.location.search);
-const postId = urlParams.get("id");
+
 cancelButton.addEventListener("click", function (event) {
   modal.style.display = "none";
   document.body.style = "overflow : auto";
@@ -275,7 +275,7 @@ for (let i = 0; i < fix.length; i++) {
   fix[i].addEventListener("click", () => {
     if (i == 0) {
       // 첫 번째 수정 버튼이라면 게시물 수정으로 이동
-      // `post-detail.html?id=${item.post_id}`
+      
 
       window.location.href = `post-fix?id=${postId}`; // 해당하는 page로 이동
     } else {

@@ -6,9 +6,9 @@ const path = require("path");
 const app = express();
 
 // 정적 파일을 제공할 경로를 설정합니다.
-const publicPath = path.join(__dirname, "public");
+const publicPath = path.join(__dirname);
 app.use(express.static(publicPath));
-app.use(express.static('public'));
+app.use(express.static('frontend'));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(publicPath, "html", "login.html"));
