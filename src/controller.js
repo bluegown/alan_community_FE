@@ -79,7 +79,7 @@ function join (req, res){ // 회원가입 구현 완료
     "title" : req.body.title,
     "innerText":req.body.innerText,
     "post_id":req.body.post_id
-  }
+  } 
   existData.info[req.body.post_id].title = req.body.title;
   existData.info[req.body.post_id].innerText = req.body.innerText;
   fs.writeFileSync('./public/data.json', JSON.stringify(existData, null, 2));
