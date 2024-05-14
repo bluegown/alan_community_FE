@@ -1,6 +1,8 @@
 // 구현 완료
 
-function checkPassword(password) {
+
+const checkPassword =(password) => {
+
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
@@ -18,7 +20,9 @@ function checkPassword(password) {
     } // 특수문자 없는 경우
   
     return true;
-  } // 비밀번호 체크
+
+
+  };
   const urlParams = new URLSearchParams(window.location.search);
   const postId = urlParams.get("id");
   const password = document.getElementById('password');

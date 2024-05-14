@@ -4,21 +4,17 @@
 // 4번조건 구현 완료
 // 5번조건도 구현 완료(사실 좀빵꾸나긴했는데 되긴됨)
 const checkButton = document.getElementById('post-delete');
-function lengthCheck(element) {
-  if (element >= 100000) {
-    return "100K";
-  }
-  if (element >= 10000) {
-    return "10K";
-  }
-  if (element >= 1000) {
-    return "1K";
-  }
+
+
+const lengthCheck = (element) => {
+  if (element >= 100000) return "100K";
+  if (element >= 10000) return "10K";
+  if (element >= 1000) return "1K";
   return element;
-} // 댓글 convert 함수 !!
+};
 // post detail은 끝!!!!!!!!!
 
-function post(elements) {
+const post = (elements) => {
   const fixTitle = document.querySelector(".post-title");
   const nickName = document.getElementById("nickName");
   const dates = document.getElementById("dates");
@@ -34,13 +30,15 @@ function post(elements) {
   inputText.innerText = elements.innerText;
   views.innerText = lengthCheck(elements.views);
   comments.innerText = lengthCheck(elements.comments);
-}
-function deletePost() {
 
+}
+
+const deletePost = () => {
   const info = {
     postId: postId,
   };
-  fetch("http://localhost:3000/removePost", {
+  fetch("/removePost", {
+
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -54,8 +52,11 @@ function deletePost() {
     .then((data) => {
       console.log("서버 응답:", data);
     });
+
 }
-function fixComment(commentNumber,postId){
+
+const fixComment = (commentNumber,postId) => {
+
   const temp = {
     "commentNumber" : commentNumber,
     "postId":postId
@@ -75,8 +76,11 @@ function fixComment(commentNumber,postId){
       console.log("서버 응답:", data);
     });
 
+
 }
-function deleteComment(i) {
+
+const deleteComment = (i) => {
+
   
   const temp = {
     post_id: postId,
@@ -96,8 +100,11 @@ function deleteComment(i) {
     .then((data) => {
       console.log("서버 응답:", data);
     });
+
 } // 댓글 삭제
-function writeComment(elements) {
+
+const writeComment = (elements) => {
+
   const entireInfo = document.createElement("div");
   const writerInfo = document.createElement("div");
   writerInfo.classList.add("writer-info"); // div writer-info
@@ -145,7 +152,11 @@ function writeComment(elements) {
   commentDetail.classList.add("commentDetail");
   entireInfo.appendChild(commentDetail);
   commentDetail.innerText = elements.comment_detail;
+
 }
+
+
+
 
 const b = document.getElementById("behind");
 b.addEventListener("click", () => {
@@ -156,7 +167,8 @@ const deleteButton = document.getElementsByClassName("delete");
 const registerButton = document.querySelector(".button");
 const modal = document.getElementById("modal");
 
-function addComment(postId){
+const addComment = (postId) =>{
+
   const inComment = document.getElementById("intext"); // 댓글 내용 input쪽에
   const arr = {
     "comment" : inComment.value,
@@ -176,8 +188,9 @@ return response.json();
 .then((data) => {
   console.log(data);
 })
-}
-function deleteEventListener() {
+
+const deleteEventListener = () => {
+
   for (let i = 0; i < deleteButton.length; i++) {
     deleteButton[i].addEventListener("click", function (event) {
       event.preventDefault();
@@ -200,7 +213,11 @@ function deleteEventListener() {
       document.body.style = "overflow : hidden";
     });
   }
+
 }
+
+};
+
 
 const cancelButton = document.getElementById("cancel");
 const urlParams = new URLSearchParams(window.location.search);

@@ -4,7 +4,9 @@
 
 
 
-function titleLengthCheck(element){
+
+const titleLengthCheck = (element)=>{
+
     if (element.length > 26){
         element = element.slice(0,26);
     }

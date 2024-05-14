@@ -2,23 +2,10 @@
 // 2번조건 구현 완료
 // 3번 보류(구현X) 
 
-function lengthCheck(element) {
-  if (element >= 100000) {
-    return "100K";
-  }
-  if (element >= 10000) {
-    return "10K";
-  }
-  if (element >= 1000) {
-    return "1K";
-  }
+const titleLengthCheck = (element)=>{
+  if (element.length > 26){
+      element = element.slice(0,26);
 
-  return element;
-}
-
-function titleLengthCheck(element) {
-  if (element.length > 26) {
-    return element.slice(0, 26);
   }
   return element;
 }

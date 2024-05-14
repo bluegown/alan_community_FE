@@ -12,12 +12,8 @@ const helperText = document.getElementById('help'); // *helper text
 const image = document.querySelector('#input-file'); // image 첨부 파일
 let titleCheck = false;
 let intextCheck = false; // 디폴트값을 false로 설정
-function lengthCheck(element){
-    if (element == ""){
-        return false;
-    } // 만약 element의 innerText가 비어있다면 false 반환
-    return true; // true면 공백이 아니고
-}
+const lengthCheck = (element) => (element =="")
+   
 title.addEventListener('input',() =>{
     title = document.getElementById('title');  // 제목 버튼
     titleCheck = lengthCheck(title.value);

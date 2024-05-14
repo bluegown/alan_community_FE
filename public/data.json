@@ -184,6 +184,23 @@
       "dates": "2024-05-10 21:06:52",
       "comment_detail": "ㅋㅋㅋ",
       "comment_number": 3
+<<<<<<< HEAD
+=======
+    },
+    {
+      "post_id": "0",
+      "nickname": "임시 댓글 작성자",
+      "dates": "2024-05-14 17:03:51",
+      "comment_detail": "끌어당겨",
+      "comment_number": 4
+    },
+    {
+      "post_id": "0",
+      "nickname": "임시 댓글 작성자",
+      "dates": "2024-05-14 17:03:51",
+      "comment_detail": "끌어당겨",
+      "comment_number": 5
+>>>>>>> c2ccec0 (fixed2)
     }
   ]
 }
