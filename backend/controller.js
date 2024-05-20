@@ -9,9 +9,58 @@ const day = ("0" + currentTime.getDate()).slice(-2);
 const hour = ("0" + currentTime.getHours()).slice(-2);
 const minute = ("0" + currentTime.getMinutes()).slice(-2);
 const second = ("0" + currentTime.getSeconds()).slice(-2);
+const SECRET_KEY = 'your-secret-key';
+const bcrypt = require('bcryptjs');
 
 const str = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
+function login(req,res){
+  const {userId,password} = req.body;
+  let existingData = {};
+    try{
+      existingData = JSON.parse(fs.readFileSync('../frontend/data.json', 'utf8'));
+    }
+    catch(err){
+      console.error('파일을 읽을 수 없습니다.', err);
+    }
+  const user = existingData.users.find(user => user.userid === userId);
+  if(user == null){
+    return res.status(400).send('No exist user');
+  } // 존재하지 않는 유저로 400번 응답 보낸다.
+
+  const isPasswordVaild = bcrypt.compareSync(password, user.password);
+  if(!isPasswordVaild){
+    return res.status(401).send('Incorrect Password');
+  }
+  req.session.userId = user.id;
+  res.status(200).send(token);
+};
+
+function logout (req,res) {
+  req.session.destroy(err => {
+    if(err){
+      return res.status(500).send('Logout Failed!');
+    
+   }
+   res.send('Logout!');
+  })
+}
+function authenticate(req,res,next){
+  if(!req.session.userId){
+    return res.status(401).send("로그인을 먼저 해주세요.");
+  }// userId가 존재하지 않는 경우
+  next();
+}
+async function checkAuth(){
+  const token = localStorage.getItem('token');
+
+  if(!token){
+    alert("Not authorized");
+    window.location.href = 'login';
+    return;
+  }
+
+} // 인증된지 아닌지 확인하는 함수
 function submit(req, res) { // 이제 게시물 작성 하나 끝났당 ㅋㅋ 
     // 요청 본문에서 파싱된 JSON 데이터 사용
     console.log('받은 데이터:', req.body);
@@ -268,7 +317,8 @@ fetch("/fixNickname", {
 
 module.exports = {
     removeComment,
-    removePost,info,join,submit,addComment,fixNickname,fixPassword,
+    removePost,info,join,submit,addComment,fixNickname,fixPassword,login,checkAuth,logout,
+    authenticate,
 };
 
 

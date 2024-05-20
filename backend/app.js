@@ -22,7 +22,7 @@ app.use(
       saveUninitialized: true,
       resave: false,
       cookie: {
-          maxAge: 24 * 60 * 60 * 1000, // 쿠키 유효 시간 (예: 1일)
+        secure: false, // 쿠키 유효 시간 (예: 1일)
       },
   }),
 );
@@ -31,6 +31,7 @@ app.use(cors({
   origin: 'http://localhost:8000', // 허용할 출처를 명시
   methods: 'GET,POST,PUT,DELETE,OPTIONS',
   allowedHeaders: 'Content-Type, Authorization',
+  credentials: true
 })); 
 app.options('*', cors());
 
@@ -48,6 +49,10 @@ app.post("/removeComment",userController.removeComment);
 app.post("/addComment",userController.addComment);
 app.post("/fixNickname",userController.fixNickname);
 app.post("/fixPassword",userController.fixPassword);
+app.post("/login",userController.login);
+app.post("/logout",userController.logout);
+
+
 
 app.listen(port, () => {
   console.log(`Backend server is running on port ${port}`);

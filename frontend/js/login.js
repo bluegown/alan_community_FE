@@ -66,9 +66,32 @@ fetch("../data.json")
         button.innerText =
           "비밀번호는 8자 이상, 20자 이하이며, 대문자, 소문자, 특수문자를 각각 최소 1개 포함해야 합니다.";
         return false
-      } else if (!checkLogin(users,userid,password)) {
+      }else{
+        const arr = {
+          "userId" : userid,
+          "password": password
+        };
+        const response = fetch("http://localhost:3000/login",{
+         method : "POST",
+         headers: {
+        'Content-Type': 'application/json'
+         },
+      body: JSON.stringify(arr),
+      credentials: 'include' // 세션 쿠키를 포함하여 요청하는 코드
+    });
+    if (response.ok) { // 만약 post한게 ok가 났다면 => 로그인 성공을 의미한다
+      console.log("Login Success!");
+      setTimeout(function () {
+        window.location.href = "post"; // 일정 시간 후에 페이지 이동
+      }, 2000); // 3초(3000밀리초) 후에 실행    // Redirect to protected page
+    } else {
+      console.error('Login failed');
+    }
+
+    } 
+      /*else if (!checkLogin(users,userid,password)) {
         button.innerText ="비밀번호가 다릅니다."; // 바보냐 json에서 배열로 선언해두고 인덱스를 안하니 당연히 이상한값이 들어가지
-        // false로 반환되었다면 아이디는 리스트 안에 있지만 비밀번호가 다른 경우 
+        // false로 반환되었다면  아이디는 리스트 안에 있지만 비밀번호가 다른 경우 
         return false;
       } // 만약 둘이 일치하지 않는다면
       else {
@@ -80,7 +103,7 @@ fetch("../data.json")
         setTimeout(function () {
           window.location.href = "post"; // 일정 시간 후에 페이지 이동
         }, 3000); // 3초(3000밀리초) 후에 실행
-      } // 이유는 js는 동기적으로 실행이 되기 떄문에....
+      } // 이유는 js는 동기적으로 실행이 되기 떄문에.... */
     });
   })
   
