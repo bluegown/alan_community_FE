@@ -96,7 +96,30 @@ const quit = document.getElementById("post-delete"); // 회원탈퇴 - 확인 �
 
 quit.addEventListener("click", () => {
   // json data delete
-  window.location.href = "login";
+  fetch('http://localhost:3000/logout', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    credentials: 'include' // 쿠키를 포함하여 요청을 보냅니다.
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Logout Failed!');
+  }
+  return response.text();
+
+})
+.then(data => {
+  console.log(data);
+  // 로그아웃이 성공한 후 클라이언트에서 할 작업
+  // 예를 들어, 로그인 페이지로 리디렉션
+})
+.catch(error => {
+    alert(error.message); // 오류 메시지를 표시합니다.
+});
+
+  window.location.href = "/login";
 });
 
 // 확인 누르면 데이터 삭제하기 구현

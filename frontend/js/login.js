@@ -45,7 +45,7 @@ fetch("../data.json")
     const button = document.querySelector('.helpertext');
 
     const t = document.getElementById("real"); // form 태그의 id
-    t.addEventListener("submit", function (event) {
+    t.addEventListener("submit", async function (event) {
       event.preventDefault(); // 이걸 통해 디폴트로 일어나는 것들을 방지하고
 
       let userid = document.getElementById("userid").value; // 입력시에 유저아이디
@@ -71,22 +71,26 @@ fetch("../data.json")
           "userId" : userid,
           "password": password
         };
-        const response = fetch("http://localhost:3000/login",{
+        fetch("http://localhost:3000/login",{
          method : "POST",
          headers: {
         'Content-Type': 'application/json'
          },
       body: JSON.stringify(arr),
       credentials: 'include' // 세션 쿠키를 포함하여 요청하는 코드
-    });
-    if (response.ok) { // 만약 post한게 ok가 났다면 => 로그인 성공을 의미한다
+    })
+    .then((response) => { // 만약 post한게 ok가 났다면 => 로그인 성공을 의미한다
+      if(response.ok){
       console.log("Login Success!");
       setTimeout(function () {
         window.location.href = "post"; // 일정 시간 후에 페이지 이동
-      }, 2000); // 3초(3000밀리초) 후에 실행    // Redirect to protected page
-    } else {
-      console.error('Login failed');
+      }, 20000); // 3초(3000밀리초) 후에 실행    // Redirect to protected page
     }
+    else{
+    alert("로그인 실패!");
+    window.location.href = "/";
+    }
+    })
 
     } 
       /*else if (!checkLogin(users,userid,password)) {

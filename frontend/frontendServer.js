@@ -10,6 +10,16 @@ const publicPath = path.join(__dirname);
 app.use(express.static(publicPath));
 app.use(express.static('frontend'));
 
+const checkSessionID = (req, res, next) => {
+  if (req.sessionID) { // 만약 세션 아이디가 존재한다면 => 
+      next(); // 다음 단계로 진행
+  } else {
+      console.log('세션 ID가 없습니다.');
+      res.status(401).send('세션 ID가 필요합니다.');
+      window.location.href = "/"; // 로그인 창으로 돌려보낸다
+  }
+};
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(publicPath, "html", "login.html"));
 });
@@ -26,13 +36,13 @@ app.get("/login", (req, res) => {
 app.get("/write-post", (req, res) => {
   res.sendFile(path.join(publicPath, "html", "write-post.html"));
 });
-app.get("/fix-info", (req, res) => {
+app.get("/fix-info",(req, res) => {
   res.sendFile(path.join(publicPath, "html", "fix-info.html"));
 });
-app.get("/fix-info2", (req, res) => {
+app.get("/fix-info2",  (req, res) => {
   res.sendFile(path.join(publicPath, "html", "fix-info2.html"));
 });
-app.get("/post-fix", (req, res) => {
+app.get("/post-fix",(req, res) => {
   res.sendFile(path.join(publicPath, "html", "post-fix.html"));
 });
 app.get("/join", (req, res) => {

@@ -87,7 +87,12 @@ fbutton.addEventListener('submit',function(event){
             })
   .then((response) => {
     // 응답을 JSON으로 파싱
+    if(response.ok){
     return response.json();
+    }// 정상상태
+    
+    window.location.href = "/";
+    
   })
   .then((data) => {
     console.log('서버 응답:', data);

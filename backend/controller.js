@@ -1,5 +1,6 @@
 const fs = require("fs");
-
+const jwt = require('jsonwebtoken');
+const session = require('express-session');
 const currentTimeInMilliseconds = Date.now();
 const currentTime = new Date(currentTimeInMilliseconds);
 
@@ -11,11 +12,14 @@ const minute = ("0" + currentTime.getMinutes()).slice(-2);
 const second = ("0" + currentTime.getSeconds()).slice(-2);
 const SECRET_KEY = 'your-secret-key';
 const bcrypt = require('bcryptjs');
+require('dotenv').config(); // dotenv 패키지를 사용하여 환경 변수 로드
+const secretKey = process.env.SECRET_KEY;
 
 const str = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 
 function login(req,res){
   const {userId,password} = req.body;
+ 
   let existingData = {};
     try{
       existingData = JSON.parse(fs.readFileSync('../frontend/data.json', 'utf8'));
@@ -28,22 +32,26 @@ function login(req,res){
     return res.status(400).send('No exist user');
   } // 존재하지 않는 유저로 400번 응답 보낸다.
 
-  const isPasswordVaild = bcrypt.compareSync(password, user.password);
-  if(!isPasswordVaild){
-    return res.status(401).send('Incorrect Password');
-  }
-  req.session.userId = user.id;
-  res.status(200).send(token);
+  
+
+  return res.status(200).json({
+    status: 200,
+    message: `환영합니다, ${userId}님!`,
+    data: {
+        //XXX data로 세션을 리턴하면 보안상의 이유로 안된다.
+        //XXX 우리는 세션 발급한 것을 보기 위해 바디로 리턴
+        sessionID: req.sessionID, 
+    },
+});
 };
 
-function logout (req,res) {
+function logout(req,res) {
   req.session.destroy(err => {
     if(err){
       return res.status(500).send('Logout Failed!');
-    
    }
    res.send('Logout!');
-  })
+  });
 }
 function authenticate(req,res,next){
   if(!req.session.userId){
@@ -54,6 +62,7 @@ function authenticate(req,res,next){
 async function checkAuth(){
   const token = localStorage.getItem('token');
 
+
   if(!token){
     alert("Not authorized");
     window.location.href = 'login';
@@ -61,7 +70,7 @@ async function checkAuth(){
   }
 
 } // 인증된지 아닌지 확인하는 함수
-function submit(req, res) { // 이제 게시물 작성 하나 끝났당 ㅋㅋ 
+const submit = (req, res) => { // 이제 게시물 작성 하나 끝났당 ㅋㅋ 
     // 요청 본문에서 파싱된 JSON 데이터 사용
     console.log('받은 데이터:', req.body);
     let existingData = {};
@@ -92,7 +101,7 @@ function submit(req, res) { // 이제 게시물 작성 하나 끝났당 ㅋㅋ
       }
     });
     res.json(existingData);
-  } 
+  };
   
 function join (req, res){ // 회원가입 구현 완료 
     // 요청 본문에서 파싱된 JSON 데이터 사용
