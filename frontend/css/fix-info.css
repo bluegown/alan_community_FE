@@ -1,0 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+.noto-serif kr-regular {
+    font-family: "Noto Serif KR", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  body{
+    background-color : #F4F5F7;
+  }
+
+
+.horizontal-line {
+    position: relative;
+    width: 100%; /* 수평선이 화면 전체 너비를 가지도록 설정 */
+    height: 2px; /* 수평선의 높이 설정 *position : relative;*/
+    background-color: #000000; 
+} /* 문제 없음 */
+
+
+.headtitle {
+    display: flex;
+    justify-content:center;
+    font-size:32px;
+    font-family: "Noto Serif KR", serif;
+  }
+  
+  .title{
+    text-align: center; /* 텍스트 가운데 정렬 */
+    
+  }
+  
+  .image {
+    position : relative;
+    left : 165px; /* 이건 대강 박스사이즈 보고 결정할것 */
+    
+ 
+  }
+
+  .dropdown-content{
+    display:none;
+    justify-content: center;
+    flex-direction:column;
+    background-color: #d9d9d9;
+    z-index: 1;
+    padding: 10px 24px 10px 24px;
+    width : 115px;
+    height : 105px;
+    font-size:12px;
+  }
+  .dropdown-content img{
+    width : 100%;
+    height: auto;
+  }
+  .dropdown:hover .dropdown-content {
+    display: flex;
+  }
+
+  
+  .back{
+    position : relative;
+    left : -360px; /* 이건 대강 박스사이즈 보고 결정할것 */
+  }
+  .post-write{
+    display : flex;
+    justify-content: center;
+    text-align:center;
+    font-size:32px;
+    font-weight:bold;
+  }
+
+
+  .functions{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  #input-file{
+    display:none;
+  }
+  .for-buttons{
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content : center;
+}
+
+.button-upload{
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* 가로축 */
+  align-items: center; /* 세로축 */
+
+  background-color: #c4c4c4; /*배경 색을 설정(원하는 걸로 바꿔도 됨)*/
+  font-weight: 100; /*폰트 사이즈를 500으로 바꿈*/
+  font-size : 80px;
+  cursor: pointer; 
+  border-radius: 50%; /*버튼의 둥근 정도를 설정*/
+
+  width :149px;
+  height : 149px;
+}
+/* 원형 이미지 스타일 */
+.img {
+    width: 149px; /* 이미지를 부모 요소의 너비에 맞춤 */
+    height:149px;
+    height: auto; /* 이미지의 가로세로 비율 유지 */
+    display: block; /* inline 요소에서 block 요소로 변경하여 블록 레벨 요소로 만듦 */
+    border-radius : 50%;
+}
+.change-button{
+  display: flex;
+  justify-content: center;
+}
+::placeholder{
+  color:black;
+}
+
+.fix{
+
+  background-color: #ACA0EB;
+  color: white;
+  border-radius : 4px;
+  border : 2px;
+  font-weight: bold;
+  
+}
+
+.sort{
+  display:flex;
+  justify-content: center;
+}
+.finish-fix{
+  width : 102px;
+  height : 46px;
+  border-radius : 30px;
+  padding: 12px 20px 12px 20px;
+  background-color: #ACA0EB;
+  border : 1px;
+  color : white;
+  font-size: 18px;
+  display : none;
+}
+
+#quit-button{
+  background-color: transparent;
+  border : 1px;
+}
+
+
+#modal{
+  display:none;
+  
+  position: fixed; /* 화면을 기준으로 위치 고정 */
+  z-index: 1; /* 다른 요소들보다 위에 위치하도록 설정 */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow:"hidden";
+  background-color: rgba(0, 0, 0, 0.5); 
+  text-align: center;
+    
+}
+#modal .modal_popup{
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width : 408px;
+    height: 242px;
+    background: #ffffff;
+    border-radius: 20px;
+    
+}
+#cancel , #post-delete{
+  width : 127px;
+  height : 44px;
+  border-radius : 12px;
+  border : 1px;
+  font-size:20px;
+
+}
+#cancel{
+  background-color :#242424;
+  color : white;
+}
+#post-delete{
+  background-color : #C4A5FA;
+}
+

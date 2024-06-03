@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css"
+  />
+    <link rel="stylesheet" type="text/css" href="../css/join.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+
+    <title>회원가입</title>
+</head>
+<body>
+    <div style = "height : 20px;"></div>
+    <div class = "move">
+    <div class="headtitle">
+        <a class = "go-behind">&lt;</a>
+        <p class="title">아무 말 대잔치</p>
+      </div>
+    </div>
+    <div style = "height : 36px;"></div>
+    <div class = "horizontal-line"></div>
+    <div style = "height : 50px;"></div>
+    <p class = "big-join" style = "font-size: 30px; font-weight:bold;">회원가입</p>
+
+
+    
+    
+
+    <div class = "functions">
+        <form method = "post" class = "join-form">
+            프로필 사진
+            <br>
+            <div style = "height : 5px;"></div>
+            <button class = "helpertext" style = "color:#FF0000; font-size:12px; font-weight:lighter;">* helper text</button>
+
+
+        <div class = "for-buttons">
+            <label class = "button-upload" for = "input-file">
+                +
+                <input type="file" id="input-file"/> <!-- 기존 파일 선택 부분 숨김 -->
+            </label> <!-- 이부분이 원과 +를 그리는 부분이지..-->
+        </div>
+            <br>
+
+            이메일*
+            <br>
+            <div style = "height : 10px;"></div>
+            <input name = 'userid' id = 'userid' type = 'text' placeholder = "이메일을 입력하세요" style = "width: 361px; height:30px;"/><br>
+            <div style = "height : 10px;"></div>
+            <a class = "helpertext" id = "emailText" style = "color:#FF0000; font-size:12px; font-weight:lighter;">* helper text</a>
+            <div style = "height : 10px;"></div>
+            비밀번호*
+            <br>
+            <div style = "height : 10px;"></div>
+            
+            <input name = 'password' id = 'password' type = 'password' placeholder = "비밀번호를 입력하세요" style = "width: 361px; height:30px;"/>
+            <br>
+            <div style = "height : 10px;"></div>
+            <a class = "helpertext" id = "passwordText" style = "color:#FF0000; font-size:12px; font-weight:lighter;">* helper text</a>
+            <div style = "height : 10px;"></div>
+
+            비밀번호 확인*
+            <br>
+            <div style = "height : 10px;"></div>
+            <input id = 'password2' type = 'password' placeholder = "비밀번호를 한번 더 입력하세요" style = "width: 361px; height:30px;"/>
+            <br>
+            
+            <div style = "height : 10px;"></div>
+            <button class = "helpertext" id = "passwordCheckText" style = "color:#FF0000; font-size:12px; font-weight:lighter;">* helper text</button>
+            <div style = "height : 10px;"></div>
+
+            닉네임*
+            <br>
+            <div style = "height : 10px;"></div>
+            <input name = 'nickname' id = 'nickname' type = 'text' placeholder = "닉네임을 입력하세요" style = "width: 361px; height:30px;"/>
+            <br>
+            <div style = "height : 10px;"></div>
+            <button class = "helpertext" id = "nicknameText" style = "color:#FF0000; font-size:12px; font-weight:lighter;">* helper text</button>
+            <div style = "height : 10px;"></div>
+
+
+            <div style = "height : 5px;"></div>
+            <input type = "submit" class = "join" value = "회원가입" style = "width: 361px; height:37px;">
+
+            <div style = "height : 10px;"></div>
+            <p class="go-login">로그인하러 가기</p>
+        
+        </form>
+    </div>
+
+
+
+
+
+</body>
+<script src = ../js/join.js></script>
+</html>

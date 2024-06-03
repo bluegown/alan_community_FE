@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+.noto-serif kr-regular {
+    font-family: "Noto Serif KR", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  body{
+    background-color : #F4F5F7;
+  }
+
+  .go-behind{
+    
+    position:relative;
+    left : -165px;
+  }
+.horizontal-line {
+    position: relative;
+    width: 100%; /* 수평선이 화면 전체 너비를 가지도록 설정 */
+    height: 2px; /* 수평선의 높이 설정 *position : relative;*/
+    background-color: #000000; 
+} /* 문제 없음 */
+
+
+.headtitle {
+    display: flex;
+    justify-content:center;
+    font-size:32px;
+    font-family: "Noto Serif KR", serif;
+  }
+  
+  .title{
+    text-align: center; /* 텍스트 가운데 정렬 */
+    
+  }
+  
+  .image {
+    position : relative;
+    left : 165px; /* 이건 대강 박스사이즈 보고 결정할것 */
+    border-radius: 50%;
+  }
+  .back{
+    position : relative;
+    left : -360px; /* 이건 대강 박스사이즈 보고 결정할것 */
+  }
+  .post-write{
+
+    text-align:center;
+    font-size:24px;
+    font-weight:700;
+  }
+  
+  .functions{
+
+    display: flex;
+    flex-direction:row;
+    justify-content: center; /* 가로축 */
+    align-items: center; /* 세로축 */
+  
+  
+  }
+  #title{
+    width : 570px;
+    height : 64px;
+    font-size : 16px;
+    font-weight: bold;
+    color : #838486;
+
+  }
+  
+ 
+  .join{
+  background-color: #7F6AEE;
+  border-radius: 4px;
+  color: white;
+  border : #7F6AEE;
+  font-weight : bolder;
+  }
+  
+  .forjoin{
+    display: flex;
+    justify-content: center;
+  }
+  .input-file{
+    width : 68px;
+    height : 29px;
+    border-radius : 1px;
+
+    border: 1px;
+  }
+  
+
+
+      
+        
+  

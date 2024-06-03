@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css"
+  />
+    <link rel="stylesheet" type="text/css" href="../css/fix-info2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+
+    <title>회원정보 수정</title>
+</head>
+<body>
+
+    <div style = "height : 20px;"></div>
+    <div class = "move">
+    <div class="headtitle">
+        <p class="title">아무 말 대잔치</p>
+        <img src="/images/Cute.PNG" style="width: 36px; height:36px; border-radius:50%;" class = "image"  /> 
+      </div>
+    </div>
+        
+   
+
+    <div style = "height : 20px;"></div>
+    <div class = "horizontal-line"></div>
+
+    <br>
+    <div style = "height : 120px;"></div>
+    <p class = "post-write">비밀번호 수정</p>
+    <div style = "height : 40px;"></div>
+
+    <div class = "functions">
+        <form method = "post" class = "join-form">
+            <a class = "password" style = "font-size:15px; font-weight:700;">비밀번호</a>
+            <br>
+            <div style = "height : 10px;"></div>
+        
+            <input id = 'password' type = 'password' placeholder = "비밀번호를 입력하세요" style = "width: 361px; height:30px;"/>
+            <div style = "height : 12px;"></div>
+            <p id = "helpertext" style = "color:#FF0000; font-size:12px; ">* helper text</p>
+            <br>
+            <a class = "password" style = "font-size:15px; font-weight:700;">비밀번호 확인</a>
+            <br>
+            <div style = "height : 10px;"></div>
+            <input id = 'password2' type = 'password' placeholder = "비밀번호를 한번 더 입력하세요" style = "width: 361px; height:30px;"/>
+            <div style = "height : 12px;"></div>
+            <p id = "helpertext2" style = "color:#FF0000; font-size:12px; ">* helper text</p>
+
+            <div style = "height : 13px;"></div>
+            <div class = "sort">
+                <input type = "submit" value = "수정하기" id = "finish-fix"/> 
+                
+      
+            </div>
+            <div class = "sort">
+                <input type = "submit" value = "수정완료" class = "finish-fix" id = "finished-fix"/>
+            </div>
+        </form>
+    </div>
+
+<!-- 변경 이모티콘 / 드롭다운 구현 필요-->
+
+
+
+</body>
+<script src = /js/fix-info2.js></script>
+</html>
