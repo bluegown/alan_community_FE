@@ -20,21 +20,21 @@ p.addEventListener("click", () => {
   window.location.href = "write-post";
 }); // 게시물 작성 클릭 -> 이동 부분
 
-fetch("../data.json")
-  .then((response) => {
-    // 응답을 JSON으로 파싱
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
+fetch("http://localhost:3000/allposts", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  credentials: 'include' 
   })
+  .then(response => response.json()) // 응답을
   .then((data) => {
-    // 데이터 처리
-    ////////////////////////////////////////
     const info = data.info; // 길이가 4인 배열 형캐로
-
+    ////////////////////////////////////////
     // JSON 데이터의 각 객체마다 박스를 추가
-    info.forEach((item) => {
+
+ 
+     data.forEach((item) => {
       // 여기까지는 잘 들어옴
       const box01 = document.createElement('div');
       box01.classList.add('box01');
@@ -90,6 +90,7 @@ fetch("../data.json")
   // 여기서 이제 postid 받아와서 -> post-detail/{post_id};로 이동시킨다.
       });
     });
+
   })
   
 

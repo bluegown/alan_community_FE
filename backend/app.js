@@ -51,6 +51,10 @@ const checkSessionID = (req, res, next) => {
 
 // 여기서부터 백엔드서버
 
+app.get("/allposts",userController.allposts);
+app.get("/posts/:postId",userController.posts);
+app.get("/comments/:postId",userController.comments);
+app.get("/user/info",userController.userData);
 app.post("/login",checkSessionID,userController.login);
 app.post("/logout",checkSessionID,userController.logout);
 app.post("/submit",checkSessionID ,userController.submit);

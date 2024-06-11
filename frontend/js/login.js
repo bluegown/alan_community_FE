@@ -32,7 +32,13 @@ const checkLogin = (users,userid,password) => {
 };
 // ../면 /Users/sunghyun/Desktop/인데..
 // ./는 현재 디렉토리 ../는 상위 디렉토리
-fetch("../data.json")
+fetch("http://localhost:3000/user/info",{
+  method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: 'include' 
+  })
   .then((response) => {
     // 응답을 JSON으로 파싱
     if (!response.ok) {

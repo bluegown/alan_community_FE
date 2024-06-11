@@ -51,8 +51,13 @@ id.addEventListener("blur", function (event) {
   let joinButton = document.querySelector(".join");
   const email = event.target.value;
   emailCheck = false;
-  fetch("../data.json")
-
+  fetch("http://localhost:3000/user/info", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: 'include' 
+  })
   .then((response) => {
     // 응답을 JSON으로 파싱
     if (!response.ok) {
@@ -61,7 +66,7 @@ id.addEventListener("blur", function (event) {
     return response.json();
   }) 
   .then((data) => {
-    const users = data.users;
+    const users = data; // 여기가 바뀐 점
     
   
   if (
@@ -152,16 +157,15 @@ nickName.addEventListener("blur", function (event) {
   const nickNameValue = event.target.value; // 안에 입력된 닉네임
   const nickNameInput = document.getElementById("nicknameText");
 
-  fetch("../data.json")
-  .then((response) => {
-    // 응답을 JSON으로 파싱
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  }) 
+  fetch("http://localhost:3000/user/info", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: 'include' 
+  })
   .then((data) => {
-    const users = data.users;
+    const users = data;
   if (nickNameValue.length == 0) {
     nickNameInput.innerText = "*닉네임을 입력해주세요.";
     nickNameCheck = false;

@@ -2,7 +2,8 @@
 
 // 너도 끝 !!!! 잘가라 
 
-
+const urlParams = new URLSearchParams(window.location.search);
+const postId = urlParams.get("id");
 
 
 const titleLengthCheck = (element)=>{
@@ -18,29 +19,28 @@ const fixButton = document.getElementById('join-form');
 
 // 여긴 fetch를 통해 post_id 인식
 
-fetch("../data.json")
-  .then((response) => {
-    // 응답을 JSON으로 파싱
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
+fetch(`http://localhost:3000/posts/${postId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: 'include' 
   })
+  .then(response => response.json()) // 응답을
   .then((data) => {
     // 데이터 처리
-    const info = data.info; // 여기는 댓글 부분
+    const info = data;
     const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get("id");
-    info.forEach((item) => {
-        if (item.post_id == postId){
-            const postTitle = document.getElementById('import-title');
-            const postDetail = document.getElementById('intext');
-            postTitle.innerText = item.title;
-            postDetail.innerText = item.innerText;
+ 
+    const postTitle = document.getElementById('import-title');
+    const postDetail = document.getElementById('intext');
+    postTitle.innerText = info.title;
+    postDetail.innerText = info.innerText;
 
-        }
+        
     });
-  });
+  
 
   fixButton.addEventListener('submit',(e) =>{
     e.preventDefault();

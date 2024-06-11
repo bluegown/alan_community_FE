@@ -307,6 +307,74 @@ function fixPassword(req,res){
     });
 });
 }
+const userData = (req,res) => {
+  fs.readFile('../frontend/data.json', 'utf8', (err, data) => {
+    if (err) {
+        // 에러 처리
+        console.error('Error reading file:', err);
+        return res.status(500).json({ error: 'Error reading file' });
+    }
+    let existData = JSON.parse(data);
+    let users = existData.users;
+    if(users){
+      res.json(users);
+    }
+  }
+  )
+}
+
+const posts = (req,res) => {
+  const { postId } = req.params;
+  const numericPostId = parseInt(postId, 10);
+  fs.readFile('../frontend/data.json', 'utf8', (err, data) => {
+    if (err) {
+        // 에러 처리
+        console.error('Error reading file:', err);
+        return res.status(500).json({ error: 'Error reading file' });
+    }
+    let existData = JSON.parse(data);
+    const item = existData.info.find(d => d.post_id === numericPostId);
+    if(item){
+      res.json(item);
+    }
+    
+  })
+}
+const comments = (req,res) => {
+  const { postId } = req.params;
+  const numericPostId = parseInt(postId, 10);
+  let existData = {}
+  fs.readFile('../frontend/data.json', 'utf8', (err, data) => {
+    if (err) {
+        // 에러 처리
+        console.error('Error reading file:', err);
+        return res.status(500).json({ error: 'Error reading file' });
+    }
+    existData = JSON.parse(data);
+    const item = existData.comment_info.filter(d => d.post_id === numericPostId);
+    if(item){
+      res.json(item);
+    }
+  })
+}
+const allposts = (req,res) => {
+ 
+  fs.readFile('../frontend/data.json', 'utf8', (err, data) => {
+    if (err) {
+        // 에러 처리
+        console.error('Error reading file:', err);
+        return res.status(500).json({ error: 'Error reading file' });
+    }
+    let existData = JSON.parse(data);
+    const item = existData.info;
+    if(item){
+      res.json(item);
+    }
+    
+    
+  })
+}
+
 /*
 const arr = {
     "comment" : inComment.innerText,
@@ -327,7 +395,7 @@ fetch("/fixNickname", {
 module.exports = {
     removeComment,
     removePost,info,join,submit,addComment,fixNickname,fixPassword,login,checkAuth,logout,
-    authenticate,
+    authenticate,userData,comments,allposts,posts
 };
 
 

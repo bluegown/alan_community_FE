@@ -38,7 +38,7 @@ const deletePost = () => {
   const info = {
     postId: postId,
   };
-  fetch("/removePost", {
+  fetch("http://localhost:3000/removePost", {
 
     method: "POST",
     headers: {
@@ -145,7 +145,19 @@ const writeComment = (elements) => {
   commentDelete.setAttribute("type", "button");
   commentDelete.setAttribute("class", "delete");
   commentDelete.innerText = "삭제";
-
+  commentDelete.addEventListener("click", function (event) {
+    event.preventDefault();
+    let separate = document.getElementById("separate");
+    
+     
+      separate.innerText = "댓글을 삭제하시겠습니까?";
+      checkButton.addEventListener('click',(e)=> {
+        deleteComment(elements.comment_number);
+        window.location.href = `post-detail?id=${postId}`;
+      });
+    modal.style.display = "block";
+    document.body.style = "overflow : hidden";
+  });
   buttons.appendChild(commentFix);
   buttons.appendChild(commentDelete);
 
@@ -173,7 +185,7 @@ const addComment = (postId) =>{
   const inComment = document.getElementById("intext"); // 댓글 내용 input쪽에
   const arr = {
     "comment" : inComment.value,
-    "postId":postId,
+    "postId": parseInt(postId),
   }
   fetch("http://localhost:3000/addComment",{
     method : "POST",
@@ -187,38 +199,14 @@ const addComment = (postId) =>{
 return response.json();
 })
 .then((data) => {
-  console.log(data);
+  location.reload(); // 이거로 새로고침 
+  
 })
 
 
 
 };
-const deleteEventListener = () => {
 
-  for (let i = 0; i < deleteButton.length; i++) {
-    deleteButton[i].addEventListener("click", function (event) {
-      event.preventDefault();
-      let separate = document.getElementById("separate");
-      if (i == 0) {
-        separate.innerText = "게시글을 삭제하시겠습니까?";
-        checkButton.addEventListener('click',(e)=> {
-          deletePost();
-          window.location.href = "post";
-        });
-      } else {
-        separate.innerText = "댓글을 삭제하시겠습니까?";
-        checkButton.addEventListener('click',(e)=> {
-          deleteComment(i);
-          window.location.href = `post-detail?id=${postId}`;
-        });
-        
-      }
-      modal.style.display = "block";
-      document.body.style = "overflow : hidden";
-    });
-  }
-
-}
 
 const cancelButton = document.getElementById("cancel");
 
@@ -242,32 +230,6 @@ commentInput.addEventListener("input", function (event) {
 
 // 여기까지가 정적 할당
 
-fetch("../data.json")
-  .then((response) => {
-    // 응답을 JSON으로 파싱
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  })
-  .then((data) => {
-    // 데이터 처리
-    const commentInfo = data.comment_info; // 여기는 댓글 부분
-
-    const postInfo = data.info; // 여기는 post 부분
-
-    postInfo.forEach((item) => {
-      if (postId == item.post_id) {
-        // url에서 요청한 부분과 같은 글을 불러온다
-        post(item); // 이렇게 하면 json 내에있는 것들이 들어간다
-      } //이렇게하면 클릭한 페이지의 내용들을 슉슉 바꿔준다
-    });
-    commentInfo.forEach((item) => {
-      if (postId == item.post_id) {
-        writeComment(item);
-      }
-    }); // 여기까지가 페이지 동적으로 불러오는 일
- 
 const fix = document.getElementsByClassName("fix"); // 모든 수정버튼을 모아둔 fix array
 const commentText = document.getElementById("intext"); // intext는 textarea를 의미
 for (let i = 0; i < fix.length; i++) {
@@ -326,12 +288,76 @@ commentButton.addEventListener("click", function (event) {
     commentButton.value = "댓글 등록";
   }
 });
-deleteEventListener();
+
 registerButton.addEventListener('click',() =>{
   addComment(postId);
 
 });
-});
+
+
+fetch(`http://localhost:3000/posts/${postId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: 'include' 
+  })
+  .then(response => response.json()) // 응답을
+  .then((data) => {
+    // 데이터 처리
+
+    console.log(data);
+    post(data);
+
+    
+ 
+    
+
+  })
+fetch(`http://localhost:3000/comments/${postId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: 'include' 
+  })
+  .then(response => response.json()) // 응답을
+  .then((data) => {
+  
+    if(data){
+      data.forEach((item) => {
+        writeComment(item);
+      })
+    }
+  })
+
+  const deleteEventListener = () => {
+
+    for (let i = 0; i < deleteButton.length; i++) {
+      deleteButton[i].addEventListener("click", function (event) {
+        event.preventDefault();
+        let separate = document.getElementById("separate");
+        if (i == 0) {
+          separate.innerText = "게시글을 삭제하시겠습니까?";
+          checkButton.addEventListener('click',(e)=> {
+            deletePost();
+            window.location.href = "post";
+          });
+        } else {
+          separate.innerText = "댓글을 삭제하시겠습니까?";
+          checkButton.addEventListener('click',(e)=> {
+            deleteComment(i);
+            window.location.href = `post-detail?id=${postId}`;
+          });
+          
+        }
+        modal.style.display = "block";
+        document.body.style = "overflow : hidden";
+      });
+    }
+  
+  }
+  deleteEventListener();
 // 여기까지가 fetch내에있는 then 부분
 
 // 여기서 댓글삭제 vs 게시글삭제에서 멈췄다
