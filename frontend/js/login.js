@@ -84,7 +84,7 @@ fetch("../data.json")
       console.log("Login Success!");
       setTimeout(function () {
         window.location.href = "post"; // 일정 시간 후에 페이지 이동
-      }, 20000); // 3초(3000밀리초) 후에 실행    // Redirect to protected page
+      }, 2000); // 3초(3000밀리초) 후에 실행    // Redirect to protected page
     }
     else{
     alert("로그인 실패!");

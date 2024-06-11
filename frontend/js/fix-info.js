@@ -8,7 +8,13 @@ const f = document.getElementById("finished-fix"); // 수정완료 버튼
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
 const innerEmail = document.getElementById("innerId");
-fetch("../data.json")
+fetch("http://localhost:3000/login/info",{
+  method : "GET",
+  headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include' 
+  })
   .then((response) => {
     // 응답을 JSON으로 파싱
     if (!response.ok) {
