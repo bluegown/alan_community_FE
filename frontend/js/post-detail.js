@@ -140,7 +140,7 @@ const writeComment = (elements) => {
   commentFix.setAttribute("type", "button");
   commentFix.setAttribute("class", "fix");
   commentFix.innerText = "수정";
-
+  
   const commentDelete = document.createElement("button");
   commentDelete.setAttribute("type", "button");
   commentDelete.setAttribute("class", "delete");
@@ -158,6 +158,7 @@ const writeComment = (elements) => {
     modal.style.display = "block";
     document.body.style = "overflow : hidden";
   });
+
   buttons.appendChild(commentFix);
   buttons.appendChild(commentDelete);
 
@@ -232,62 +233,13 @@ commentInput.addEventListener("input", function (event) {
 
 const fix = document.getElementsByClassName("fix"); // 모든 수정버튼을 모아둔 fix array
 const commentText = document.getElementById("intext"); // intext는 textarea를 의미
-for (let i = 0; i < fix.length; i++) {
-  // 각각의 수정버튼에 대해서 eventlistener를 달아준다
-  fix[i].addEventListener("click", () => {
-    if (i == 0) {
-      // 첫 번째 수정 버튼이라면 게시물 수정으로 이동
-      
+fix[0].addEventListener("click", () => {
+  window.location.href = `post-fix?id=${postId}`; 
 
-      window.location.href = `post-fix?id=${postId}`; // 해당하는 page로 이동
-    } else {
-      const buttonText = document.querySelector(".button"); // 댓글 등록 버튼
-      const fixText = document.getElementById("intext"); // 댓글 내용 input쪽에
-      for (let j = 0; j < commentInfo.length; j++) {
-        if (
-          postId == commentInfo[j].post_id &&
-          i == commentInfo[j].comment_number
-        ) {
-          // 여기서 i는 post id
-          // 불러온 postId와 json 데이터 내에서의 postid가 같고, comment_number는 글 내에서의 댓글 순서
-          fixText.innerText = ""; // 댓글 입력 창에 불러오기
-          fixText.offsetHeight;
-          buttonText.value = "댓글 수정"; // 버튼을 댓글 입력 -> 댓글 수정으로 바꾸고
-          buttonText.offsetHeight; // 렌더링시켜서 결과물을 눈에 보이게 한다
-          commentNumber = commentInfo[j].comment_number;
-          
+})
 
-        }
-      }
 
-      // commentInfo.comment_detail
-    } // innerText를 댓글 수정으로 바꾸고,
-  });
-} // 댓글 수정 부분 (조건 5번)
 
-commentButton.addEventListener("click", function (event) {
-  if (commentButton.value == "댓글 수정") {
-    const nowText = document.getElementById("intext");
-    const findComment = document.querySelectorAll(".commentDetail"); //댓글 내용들
-    for (let i = 0; i < findComment.length; i++) {
-      // 안에있는 내용
-      if (i + 1 == commentNumber) {
-        // 댓글 번호가 i+1과 같다면 ?
-        // 이거로 수정할 댓글 찾고
-        findComment[i].innerText = nowText.value;
-        commentInfo.forEach((item) => {
-          if (commentNumber == item.comment_number) {
-            item.comment_detail = nowText.value;
-          } // 지금 써져있는 텍스트를 Json 파일에서 변경한다
-        });
-        //댓글 내용을 textarea 내에있는 것으로 최신화 후
-        findComment[i].offsetHeight; // 댓글 내용을 재렌더링시켜준다.
-        fixComment(commentNumber,postId);
-      }
-    }
-    commentButton.value = "댓글 등록";
-  }
-});
 
 registerButton.addEventListener('click',() =>{
   addComment(postId);

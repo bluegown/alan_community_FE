@@ -248,13 +248,6 @@
       "nickname": "임시 댓글 작성자",
       "dates": "2024-06-11 23:08:41",
       "comment_detail": "ggg",
-      "comment_number": 2
-    },
-    {
-      "post_id": 2,
-      "nickname": "임시 댓글 작성자",
-      "dates": "2024-06-11 23:14:44",
-      "comment_detail": "ㅎㅎㅎ",
       "comment_number": 1
     },
     {
@@ -262,14 +255,14 @@
       "nickname": "임시 댓글 작성자",
       "dates": "2024-06-11 23:14:44",
       "comment_detail": "zzzz",
-      "comment_number": 2
+      "comment_number": 1
     },
     {
       "post_id": 2,
       "nickname": "임시 댓글 작성자",
       "dates": "2024-06-11 23:14:44",
       "comment_detail": "Z",
-      "comment_number": 3
+      "comment_number": 2
     }
   ]
 }

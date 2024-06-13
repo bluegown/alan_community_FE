@@ -32,7 +32,7 @@ function login(req,res){
     return res.status(400).send('No exist user');
   } // 존재하지 않는 유저로 400번 응답 보낸다.
 
-  
+ session.userId = userId;
 
   return res.status(200).json({
     status: 200,
@@ -71,38 +71,46 @@ async function checkAuth(){
 
 } // 인증된지 아닌지 확인하는 함수
 const submit = (req, res) => { // 이제 게시물 작성 하나 끝났당 ㅋㅋ 
-    // 요청 본문에서 파싱된 JSON 데이터 사용
-    console.log('받은 데이터:', req.body);
-    let existingData = {};
-    try{
-      existingData = JSON.parse(fs.readFileSync('../frontend/data.json', 'utf8'));
-    }
-    catch(err){
-      console.error('파일을 읽을 수 없습니다.', err);
-    }
+  // 요청 본문에서 파싱된 JSON 데이터 사용
+  console.log('받은 데이터:', req.body);
+  let existingData = {};
+  try{
+    existingData = JSON.parse(fs.readFileSync('../frontend/data.json', 'utf8'));
+  }
+  catch(err){
+    console.error('파일을 읽을 수 없습니다.', err);
+  }
+  if(req.session.sessionID == null){
+    return res.status(401).json.send("로그인을 해야 합니다.");
+  } // 여기 세션 아이디가 null인지에 대한 유무 확인
+  const information = existingData.users.find(user => user.userid == req.session.userId)
+  const info = {
+    "post_id": (existingData.info.length),
+    "title": req.body.title,
+    "likes": 0,
+    "comments":0,
+    "views":0,
+    "nickname":information.nickname,
+    "dates": str,
+    "innerText": req.body.innerText,
+    "img":req.body.img // 여기에 img src를 
     
-    const info = {
-      "post_id": (existingData.info.length),
-      "title": req.body.title,
-      "likes": 0,
-      "comments":0,
-      "views":0,
-      "nickname":`더미 작성자 ${(existingData.info.length)}`,
-      "dates": str,
-      "innerText": req.body.innerText,
-      "img":req.body.img // 여기에 img src를 
-      
+  }
+  existingData.info.push(info);
+
+  const sql = "insert into postInfo(user_id,postTime,like_count,comment_count,view_count,post_detail) values(?,?,?,?,?,?)";
+  db.query(sql,[req.session.userId,'2024-06-03 22:35:02',0,0,0,info.innerText],(err,results,fields) => {
+    console.log("err",err);
+    console.log("results",results);
+    console.log("fields",fields);
+  });
+  fs.writeFile('../frontend/data.json',JSON.stringify(existingData, null, 4), err => {
+    if(err){
+      return res.status(500).send("파일 쓰기 불가능");
     }
-    existingData.info.push(info);
-  
-    fs.writeFile('../frontend/data.json',JSON.stringify(existingData, null, 4), err => {
-      if(err){
-        return res.status(500).send("파일 쓰기 불가능");
-      }
-    });
-    res.json(existingData);
-  };
-  
+  });
+  res.json(existingData);
+};
 function join (req, res){ // 회원가입 구현 완료 
     // 요청 본문에서 파싱된 JSON 데이터 사용
     console.log('받은 데이터:', req.body);
@@ -131,20 +139,29 @@ function join (req, res){ // 회원가입 구현 완료
     res.json(info2);
   }
 
-  function info(req,res){ // 수정 ,, 겨우 됐다,, 아오 ,, ^^ 
+const info = (req,res) => { // 수정 ,, 겨우 됐다,, 아오 ,, ^^ 
   let existData = JSON.parse(fs.readFileSync('../frontend/data.json', 'utf8'));
   const info = {
     "title" : req.body.title,
     "innerText":req.body.innerText,
-    "post_id":req.body.post_id
+    "postId":req.body.post_id
   } 
+  if(!req.session.userId){
+    return res.status(401).send("로그인을 해주세요.");
+  }
+  const data = existData.info.find(x=> x.post_id == info.postId);
+  if(data){
+    if(data.userId!=req.session.userId){
+      return res.status(401).send("본인이 작성하지 않은 글입니다.");
+    }
+  }
   existData.info[req.body.post_id].title = req.body.title;
   existData.info[req.body.post_id].innerText = req.body.innerText;
   fs.writeFileSync('../frontend/data.json', JSON.stringify(existData, null, 2));
     res.json(info);
 }
 
-function removePost (req,res){
+const removePost  = (req,res) => {
   // req.body는 postId
   const postId = req.body.postId;
   fs.readFile('../frontend/data.json', 'utf8', (err, data) => {
@@ -153,7 +170,17 @@ function removePost (req,res){
         console.error('Error reading file:', err);
         return res.status(500).json({ error: 'Error reading file' });
     }
+    if(!req.session.userId){
+      return res.status(401).send("로그인을 먼저 해주세요!");
+    }
     let existData = JSON.parse(data);
+    const mydata = existData.info.find(x => x.post_id == postId);
+    if(!mydata){
+      return res.status(401).send("empty");
+    }    
+    if(mydata.userId!=req.session.userId){
+      return res.status(401).send("본인이 작성한 글이 아닙니다");
+    }
     existData.info = existData.info.filter(item => item.post_id!= postId);
     fs.writeFile('../frontend/data.json', JSON.stringify(existData, null, 2), err => {
         if (err) {

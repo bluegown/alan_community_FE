@@ -64,11 +64,19 @@ fetch(`http://localhost:3000/posts/${postId}`, {
     headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(arr) // json  형식으로 
+      body: JSON.stringify(arr), // json  형식으로 
+      credentials:'include'
     })
 .then((response) => {
+  if(response.ok){
+    return response.json();
+  }
+  else{
+    alert("본인만이 글을 수정할 수 있습니다.");
+    window.location.href = `post-detail?id=${postId}`; 
+  }
 // 응답을 JSON으로 파싱
-return response.json();
+
 })
 .then((data) => {
  
