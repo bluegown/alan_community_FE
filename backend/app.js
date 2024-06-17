@@ -22,7 +22,8 @@ app.use(
       saveUninitialized: true,
       resave: false,
       cookie: {
-          maxAge: 24 * 60 * 60 * 1000, // 쿠키 유효 시간 (예: 1일)
+          maxAge: 24 * 60 * 60 * 1000,
+          secure: false  // 쿠키 유효 시간 (예: 1일)
       },
   }),
 );

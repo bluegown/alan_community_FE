@@ -23,16 +23,18 @@ const post = (elements) => {
   const inputText = document.getElementById("inputText");
   const views = document.getElementById("number");
   const comments = document.getElementById("number2");
+  const deleteButton = document.getElementsByClassName("delete");
   let commentNumber = 0;
   fixTitle.innerText = elements.title;
   nickName.innerText = elements.nickname;
   dates.innerText = elements.dates;
-  image.src = elements.img;
-  inputText.innerText = elements.innerText;
-  views.innerText = lengthCheck(elements.views);
-  comments.innerText = lengthCheck(elements.comments);
-
+  image.src = elements.post_image;
+  inputText.innerText = elements.post_detail;
+  views.innerText = lengthCheck(elements.view_count);
+  comments.innerText = lengthCheck(elements.comment_count);
+  
 }
+
 
 const deletePost = () => {
   const info = {
@@ -45,10 +47,17 @@ const deletePost = () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(info),
+    credentials: 'include'
   })
     .then((response) => {
       // 응답을 JSON으로 파싱
+      if(response.ok){
       return response.json();
+      }
+      else{
+        alert("본인의 글이 아니면 삭제할 수 없습니다.");
+        window.location.href = "/";
+      }
     })
     .then((data) => {
       console.log("서버 응답:", data);
@@ -56,11 +65,12 @@ const deletePost = () => {
 
 }
 
-const fixComment = (commentNumber,postId) => {
+const fixComment = (commentNumber,postId,innerText) => {
 
   const temp = {
     "commentNumber" : commentNumber,
-    "postId":postId
+    "postId":postId,
+    "comment_detail" : innerText
   }
   fetch("http://localhost:3000/fixComment", {
     method: "POST",
@@ -93,6 +103,7 @@ const deleteComment = (i) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(temp),
+    credentials : 'include'
   })
     .then((response) => {
       // 응답을 JSON으로 파싱
@@ -130,7 +141,7 @@ const writeComment = (elements) => {
   writerInfo.appendChild(commentDates);
 
   commentWriter.innerText = elements.nickname;
-  commentDates.innerText = elements.dates;
+  commentDates.innerText = elements.comment_postTime;
 
   const buttons = document.createElement("div");
   buttons.classList.add("buttons");
@@ -140,7 +151,24 @@ const writeComment = (elements) => {
   commentFix.setAttribute("type", "button");
   commentFix.setAttribute("class", "fix");
   commentFix.innerText = "수정";
-  
+  commentFix.addEventListener("click", function (event) {
+    event.preventDefault();
+    const buttonText = document.querySelector(".button"); // 댓글 등록 버튼
+    const fixText = document.getElementById("intext"); // 댓글 내용 input쪽에
+      fixText.innerText = ""; // 댓글 입력 창에 불러오기
+      fixText.offsetHeight; // 
+      buttonText.value = "댓글 수정"; // 버튼을 댓글 입력 -> 댓글 수정으로 바꾸고
+      buttonText.offsetHeight; // 렌더링시켜서 결과물을 눈에 ƒ보이게 한다
+      
+      if(buttonText.value == "댓글 수정"){
+        buttonText.addEventListener('click',(e)=> {
+          fixComment(elements.comment_number,fixText.value);
+          
+          window.location.href = `post-detail?id=${postId}`;
+        });
+      }
+      
+    })
   const commentDelete = document.createElement("button");
   commentDelete.setAttribute("type", "button");
   commentDelete.setAttribute("class", "delete");
@@ -153,6 +181,7 @@ const writeComment = (elements) => {
       separate.innerText = "댓글을 삭제하시겠습니까?";
       checkButton.addEventListener('click',(e)=> {
         deleteComment(elements.comment_number);
+        
         window.location.href = `post-detail?id=${postId}`;
       });
     modal.style.display = "block";
@@ -182,18 +211,20 @@ const registerButton = document.querySelector(".button");
 const modal = document.getElementById("modal");
 
 const addComment = (postId) =>{
-
+  const buttonText = document.querySelector(".button"); // 댓글 등록 버튼
   const inComment = document.getElementById("intext"); // 댓글 내용 input쪽에
   const arr = {
     "comment" : inComment.value,
     "postId": parseInt(postId),
   }
-  fetch("http://localhost:3000/addComment",{
+  if(buttonText.value == "댓글 등록"){
+      fetch("http://localhost:3000/addComment",{
     method : "POST",
     headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(arr) // json  형식으로 
+      body: JSON.stringify(arr),
+      credentials : 'include' // json  형식으로 
     })
 .then((response) => {
 // 응답을 JSON으로 파싱
@@ -204,7 +235,7 @@ return response.json();
   
 })
 
-
+  }
 
 };
 
@@ -295,14 +326,10 @@ fetch(`http://localhost:3000/comments/${postId}`, {
             deletePost();
             window.location.href = "post";
           });
-        } else {
-          separate.innerText = "댓글을 삭제하시겠습니까?";
-          checkButton.addEventListener('click',(e)=> {
-            deleteComment(i);
-            window.location.href = `post-detail?id=${postId}`;
-          });
+        } 
           
-        }
+        
+        const modal = document.getElementById("modal");
         modal.style.display = "block";
         document.body.style = "overflow : hidden";
       });

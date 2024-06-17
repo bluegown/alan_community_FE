@@ -36,7 +36,7 @@ fetch(`http://localhost:3000/posts/${postId}`, {
     const postTitle = document.getElementById('import-title');
     const postDetail = document.getElementById('intext');
     postTitle.innerText = info.title;
-    postDetail.innerText = info.innerText;
+    postDetail.innerText = info.post_detail;
 
         
     });

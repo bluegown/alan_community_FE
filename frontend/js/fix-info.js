@@ -66,7 +66,8 @@ b.addEventListener("click", (e) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(arr), // json  형식으로
+      body: JSON.stringify(arr),
+      credentials : 'include' // json  형식으로
     })
       .then((response) => {
         // 응답을 JSON으로 파싱

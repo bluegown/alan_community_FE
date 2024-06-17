@@ -74,7 +74,7 @@ fbutton.addEventListener('submit',function(event){
             "innerText": data.intext,
             "img": data.file
         }
-        console.log(arr);
+        
     
     
     
@@ -92,22 +92,18 @@ fbutton.addEventListener('submit',function(event){
     return response.json();
     }// 정상상태
     else{
-    alert("로그인을 해야 합니다!");
+    alert("로그인을 해야 합니다.");
     window.location.href = "/";
     }
+   
     
   })
   .then((data) => {
     console.log('서버 응답:', data);
+    window.location.href = "/post";
     })
+}
 
-    /* setTimeout(function () {
-        window.location.href = "post.html"; // 일정 시간 후에 페이지 이동
-      }, 2000); */
-      setTimeout(function () {
-        window.location.href = "post"; // 일정 시간 후에 페이지 이동
-      }, 1000); 
-    }
 });
     
 

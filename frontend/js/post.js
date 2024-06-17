@@ -53,9 +53,9 @@ fetch("http://localhost:3000/allposts", {
       const boxinfo = document.createElement("div");
       boxinfo.classList.add("box-info");
       const dates = document.createElement("div");
-      const likes = item.likes;
-      const comments = item.comments;
-      const views = item.views;
+      const likes = item.like_count;
+      const comments = item.comment_count;
+      const views = item.view_count;
       box01.appendChild(boxinfo);
 
       const like = lengthCheck(likes);
@@ -86,7 +86,7 @@ fetch("http://localhost:3000/allposts", {
      
 
       box01.addEventListener("click", () => {      // URL로 이동
-          window.location.href = `post-detail?id=${item.post_id}`; // 이렇게 하면 된다!!
+          window.location.href = `post-detail?id=${item.postId}`; // 이렇게 하면 된다!!
   // 여기서 이제 postid 받아와서 -> post-detail/{post_id};로 이동시킨다.
       });
     });
