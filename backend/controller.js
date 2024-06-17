@@ -32,7 +32,7 @@ db.connect((err) => {
   }
   console.log('MySQL에 연결되었습니다.');
 });
-async function login(req,res){
+const login = async (req,res) => {
   const {userId,password} = req.body;
   req.session.userId = userId;
 
@@ -137,7 +137,7 @@ const submit = async (req, res) => { // 이제 게시물 작성 하나 끝났당
   }
   
 }; // DB로 완전히 바꾸기 완료
-function join (req, res){ // 회원가입 구현 완료 
+const join = (req, res) => { // 회원가입 구현 완료 
     // 요청 본문에서 파싱된 JSON 데이터 사용
     console.log('받은 데이터:', req.body);
     
@@ -216,14 +216,24 @@ const removePost  = async (req,res) => {
 
 } // DB 적용 완전히 완료 !!!!!!!!!!!!!!!!!!! 
 
-function removeComment(req,res){
+const removeComment = async (req,res) => {
   const postId = req.body.post_id;
   const commentNumber = req.body.commentNumber;
   // post id가 같고 // comment id도 같은 애를 지운다
   if(req.session.userId == null){
     return res.status(401).send("로그인을 해야 합니다.");
   } // 여기 세션 아이디가 null인지에 대한 유무 확인
-  
+
+  const user = await new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM Comments WHERE comment_number = ? ';
+    db.query(sql, [commentNumber], (err, result) => {
+      if (err) return reject(err);
+      resolve(result[0]);
+    });
+  });
+  if(req.session.userId!= user.userId){
+    return res.status(401).send("본인의 댓글이 아닙니다.");
+  }
     const sql = "delete from Comments where comment_number = ? and postId = ?";
     db.query(sql,[commentNumber,postId],(err,results,fields) => {
      console.log("err",err);
@@ -241,7 +251,7 @@ function removeComment(req,res){
 
 
 } // 댓글 삭제도 일단 DB 적용 완전히완료 !!!!!!!!!!!
-async function addComment(req,res){
+const addComment = async (req,res) => {
   const postId = req.body.postId;
   const comment = req.body.comment;
   const user = await new Promise((resolve, reject) => {
@@ -286,7 +296,7 @@ async function addComment(req,res){
     res.json(arr);
 } // 댓글 추가 DB 완전히 변환 완료
 
-function fixNickname(req,res){
+const fixNickname = (req,res) => {
   const idnumber = req.body.idnumber;
   const nickname = req.body.nickname;
   

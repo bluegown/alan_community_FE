@@ -61,7 +61,7 @@ b.addEventListener("click", (e) => {
       idnumber: postId,
       nickname: id.value,
     };
-    fetch("/fixNickname", {
+    fetch("http://localhost:3000/fixNickname", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
