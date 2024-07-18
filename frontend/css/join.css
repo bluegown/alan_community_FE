@@ -125,3 +125,46 @@ label{
 .go-login:hover{
   cursor:pointer;
 }
+.prf-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  width: 149px;
+  height: 149px;
+  border-radius: 50%;
+  display: none;
+}
+
+.prf-img {
+  position: relative;
+}
+
+.prf-img label {
+  display: inline-block;
+  width: 149px;
+  height: 149px;
+  border-radius: 50%;
+  background-color: #c4c4c4; /* 테두리 스타일과 색상 설정 */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+  overflow: hidden;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.prf-img label::before {
+  content: '+'; /* 아이콘 또는 텍스트 추가 */
+  font-size: 50px; /* 아이콘 또는 텍스트 크기 설정 */
+  font-weight: 50;
+  display: block;
+  line-height: 149px; /* 아이콘 또는 텍스트를 가운데 정렬 */
+  text-align: center; /* 아이콘 또는 텍스트를 가운데 정렬 */
+}
+
+.prf-img label.has-image::before {
+      content: '';
+    }

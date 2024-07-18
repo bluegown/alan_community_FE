@@ -2,7 +2,7 @@
 // 2번조건 구현 완료
 // 3번조건 완료
 // 4번은 완료는 아니지만 보류
-const id = document.getElementById("userid");
+const id = document.getElementById("userId");
 const passwordInput = document.getElementById("password");
 const passwordCheckInput = document.getElementById("password2");
 const nickName = document.getElementById("nickname");
@@ -13,15 +13,42 @@ let pwCheck = false;
 let pwCheck2 = false;
 let nickNameCheck = false;
 
+const fileInput = document.getElementById('fileupload');
+const fileLabel = document.getElementById('fileupload-label');
+function changeButtonColor() {
+  if (joinButton) {
+      joinButton.style.backgroundColor = (emailCheck && pwCheck && pwCheck2 && nickNameCheck)? '#7F6AEE' : '#ACA0EB';
+  }
+}
+fileInput.addEventListener('change', event => {
+  const selectedFile = event.target.files[0];
+  if (selectedFile) {
+      console.log("Selected file:", selectedFile.name);
+      console.log("File type:", selectedFile.type);
+      console.log("File size:", selectedFile.size, "bytes");
+      validProfileImageStatus = true; // 파일이 선택되면 유효성 상태 업데이트
 
-
+      // 파일을 읽고 label에 배경 이미지로 설정
+      const reader = new FileReader();
+      reader.onload = function (e) {
+          fileLabel.style.backgroundImage = `url(${e.target.result})`;
+          fileLabel.classList.add('has-image')
+      }
+      reader.readAsDataURL(selectedFile);
+  } else {
+      console.log("No file selected.");
+      validProfileImageStatus = false; // 파일이 선택되지 않으면 유효성 상태 업데이트
+      fileLabel.classList.remove('has-image');
+  }
+  changeButtonColor(); // 버튼 색상 업데이트
+});
 const emailLengthCheck = (value) => value.length >=4;
 
-const duplicateEmail = (users,email) => !users.some(user => user.userid === email);
+const duplicateEmail = (users,email) => !users.some(user => user.userId === email);
 const duplicateNickName = (users,nickName) => !users.some(user => user.nickname === nickName);
 
 const changeJoinButton = (a, b, c, d) => (a == true && b == true && c == true && d == true);
-
+const checkNickNameSplit = (element) => !element.includes(" ");
 const Pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const validateEmail = (email) => Pattern.test(email); // 유효한 경우
@@ -36,7 +63,7 @@ const checkPassword = (password) => {
          hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
 };
 // form 개체에다가 FormData 박으면 다 출력 가능함
-const checkNickNameSplit = (element) => !element.includes(" ");
+
 
 
 
@@ -84,7 +111,6 @@ id.addEventListener("blur", function (event) {
       "*중복된 이메일입니다.";
 
   } // 
-  
   else {
     emailText.innerText = ""; // 조건을 모두 충족한 경우라면 helperText를 없애준다
     emailCheck = true;
@@ -164,6 +190,13 @@ nickName.addEventListener("blur", function (event) {
     },
     credentials: 'include' 
   })
+  .then((response) => {
+    // 응답을 JSON으로 파싱
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  }) 
   .then((data) => {
     const users = data;
   if (nickNameValue.length == 0) {
@@ -208,34 +241,29 @@ submit.addEventListener("click", function (event) {
   event.preventDefault();
   if (changeJoinButton(emailCheck, pwCheck, pwCheck2, nickNameCheck)) {
     const f = document.querySelector('.join-form'); // 이거로 form 가져오고 
-    const formData = new FormData(f);  //
-    const data = Object.fromEntries(formData); // 이거로 바꾸니까 됐다 유후 ~ 
-    console.log(data.userid);
-    console.log(data.password);
-    console.log(data.nickname);
-    const arr = {
-      "userid": data.userid,
-      "password":data.password,
-      "nickname":data.nickname
-    }
+      // // 이거로 바꾸니까 됐다 유후 ~ 
+      const formData = new FormData(f);
+    
+      // formData.append('image', fileInput2.files[0]);
+      
+
+      for (const pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+      }
+
+      const data = Object.fromEntries(formData);
     fetch("http://localhost:3000/join", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(arr), // json  형식으로
-    })
-      .then((response) => {
-        // 응답을 JSON으로 파싱
-        return response.json();
-      })
+      credentials: 'include',
+      body: formData
+        })
       .then((data) => {
         console.log("서버 응답:", data);
       });
 
-      setTimeout(function () {
+      /*setTimeout(function () {
         window.location.href = "login"; // 일정 시간 후에 페이지 이동
-      }, 2000);
+      }, 2000);*/
     
   }
 });

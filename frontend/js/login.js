@@ -73,6 +73,7 @@ fetch("http://localhost:3000/user/info",{
           "비밀번호는 8자 이상, 20자 이하이며, 대문자, 소문자, 특수문자를 각각 최소 1개 포함해야 합니다.";
         return false
       }else{
+
         const arr = {
           "userId" : userid,
           "password": password
@@ -87,6 +88,7 @@ fetch("http://localhost:3000/user/info",{
     })
     .then((response) => { // 만약 post한게 ok가 났다면 => 로그인 성공을 의미한다
       if(response.ok){
+        button.innerText ="";
       console.log("Login Success!");
       setTimeout(function () {
         window.location.href = "post"; // 일정 시간 후에 페이지 이동

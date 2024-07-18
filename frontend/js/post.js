@@ -9,6 +9,28 @@ const titleLengthCheck = (element)=>{
   }
   return element;
 };
+const findProfileById = async(postId) => {
+
+  try {
+    const response = await fetch(`http://localhost:3000/profileImage`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: 'include'
+    });
+
+    if (!response.ok) {
+      throw new Error("로그인이 필요합니다.");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    return null;
+  }
+}
 const p = document.getElementById("write-post");
 const lengthCheck = (element) => {
   if (element >= 100000) return "100K";
@@ -19,7 +41,24 @@ const lengthCheck = (element) => {
 p.addEventListener("click", () => {
   window.location.href = "write-post";
 }); // 게시물 작성 클릭 -> 이동 부분
+function loadprofile(){
+  fetch("http://localhost:3000/profileImage", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  credentials: 'include' 
+  })
+  .then(response => response.json()) // 응답을
+  .then((data) => {
+    const img = document.querySelector('.image');
+    console.log(data.image);
+    console.log(data);
+    img.src = `http://localhost:3000/${data.image}`;
 
+  })
+};
+loadprofile();
 fetch("http://localhost:3000/allposts", {
   method: "GET",
   headers: {
@@ -34,7 +73,7 @@ fetch("http://localhost:3000/allposts", {
     // JSON 데이터의 각 객체마다 박스를 추가
 
  
-     data.forEach((item) => {
+     data.forEach(async (item) => {
       // 여기까지는 잘 들어옴
       const box01 = document.createElement('div');
       box01.classList.add('box01');
@@ -74,11 +113,22 @@ fetch("http://localhost:3000/allposts", {
       writer_info.classList.add("writer-info");
       box01.appendChild(writer_info);
 
-      const profileImage = document.createElement("div");
+      const profileImage = document.createElement("img");
       const nickName = document.createElement("div");
       writer_info.appendChild(profileImage);
       writer_info.appendChild(nickName); // writer-info 내에 profile-image, nickname 존재
       profileImage.classList.add("profile-image");
+      console.log(item);
+      try {
+        const posts = await findProfileById(item.user_id); // await 키워드 사용
+        console.log(posts);
+        if (posts && posts.image) {
+          profileImage.src = `http://localhost:3000/${posts.image}`;
+        } 
+      } catch (error) {
+        console.error("Failed to load user profile image:", error);
+    
+      } 
       nickName.innerText = item.nickname;
       nickName.style.marginLeft = "10px";
       nickName.style.fontWeight = "bold";
@@ -92,9 +142,17 @@ fetch("http://localhost:3000/allposts", {
     });
 
   })
-  
+  const dropdown = document.querySelector(".dropdown");
+  const dropdownMenu = document.querySelector(".dropdown-menu");
+  const imageClick = document.querySelector(".image");
 
-
+  imageClick.addEventListener("click", function () {
+    if (dropdownMenu.style.display === "block") {
+        dropdownMenu.style.display = "none";
+    } else {
+        dropdownMenu.style.display = "block";
+    }
+});
 // fetch로 json 데이터를 다 불러오고 난 뒤에 클릭을 하는 경우니까 아래에다가 해줘도 되겠지?
 
 // 아직 DB랑 연동을 못해서 좋아요 댓글 조회수 업그레이드 기능을 못넣었다 ...

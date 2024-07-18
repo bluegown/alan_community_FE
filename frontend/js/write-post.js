@@ -13,7 +13,10 @@ const image = document.querySelector('#input-file'); // image 첨부 파일
 let titleCheck = false;
 let intextCheck = false; // 디폴트값을 false로 설정
 const lengthCheck = (element) => !(element =="")
-   
+document.getElementById('input-file').addEventListener('change', function() {
+    var fileName = this.files[0].name;
+    document.getElementById('ment').textContent = fileName;
+});
 title.addEventListener('input',() =>{
     title = document.getElementById('title');  // 제목 버튼
     titleCheck = lengthCheck(title.value);
@@ -66,25 +69,18 @@ fbutton.addEventListener('submit',function(event){
         const f =  document.querySelector('.join-form'); // form 가지고온다
         const formData = new FormData(f); 
         const data = Object.fromEntries(formData); // 이거로 바꾸니까 됐다 유후 ~        
-        console.log(data);
-        var fileInput = document.getElementById('input-file');
-        var file = fileInput.files[0]; // 피그마 조건에서 파일은 1개....
-        const arr = {
-            "title": data.title,
-            "innerText": data.intext,
-            "img": data.file
-        }
+        
+        for (const pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+          }
         
     
     
     
         fetch("http://localhost:3000/submit",{
             method : "POST",
-            headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(arr),
-              credentials : 'include' // json  형식으로 
+            body: formData,
+            credentials : 'include' // json  형식으로 
             })
   .then((response) => {
     // 응답을 JSON으로 파싱
@@ -106,6 +102,16 @@ fbutton.addEventListener('submit',function(event){
 
 });
     
+const dropdown = document.querySelector(".dropdown");
+  const dropdownMenu = document.querySelector(".dropdown-menu");
+  const imageClick = document.querySelector(".image");
 
+  imageClick.addEventListener("click", function () {
+    if (dropdownMenu.style.display === "block") {
+        dropdownMenu.style.display = "none";
+    } else {
+        dropdownMenu.style.display = "block";
+    }
+});
 
 

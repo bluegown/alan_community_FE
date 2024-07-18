@@ -5,7 +5,47 @@
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
 
+const  loadprofile = async() => {
+  await fetch("http://localhost:3000/profileImage", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  credentials: 'include' 
+  })
+  .then(response => response.json()) // 응답을
+  .then((data) => {
+    const img = document.querySelector('.image');
+    console.log(data.image);
+    console.log(data);
+    img.src = `http://localhost:3000/${data.image}`;
 
+  })
+};
+loadprofile();
+const fileInput = document.getElementById('input-file');
+fileInput.addEventListener('change', event => {
+  const selectedFile = event.target.files[0];
+  if (selectedFile) {
+      console.log("Selected file:", selectedFile.name);
+      console.log("File type:", selectedFile.type);
+      console.log("File size:", selectedFile.size, "bytes");
+      validProfileImageStatus = true; // 파일이 선택되면 유효성 상태 업데이트
+
+      // 파일을 읽고 label에 배경 이미지로 설정
+      const reader = new FileReader();
+      reader.onload = function (e) {
+          fileLabel.style.backgroundImage = `url(${e.target.result})`;
+          fileLabel.classList.add('has-image')
+      }
+      reader.readAsDataURL(selectedFile);
+  } else {
+      console.log("No file selected.");
+      validProfileImageStatus = false; // 파일이 선택되지 않으면 유효성 상태 업데이트
+      fileLabel.classList.remove('has-image');
+  }
+  changeButtonColor(); // 버튼 색상 업데이트
+});
 const titleLengthCheck = (element)=>{
 
     if (element.length > 26){
@@ -52,7 +92,7 @@ fetch(`http://localhost:3000/posts/${postId}`, {
     const arr = {
       "title": data.title,
       "innerText" : data.innerText,
-      "post_id": postId
+      "postId": postId
     }
     console.log(arr);
 
@@ -93,4 +133,15 @@ window.location.href = "post.html"; // 일정 시간 후에 페이지 이동
 
   
 
+});
+const dropdown = document.querySelector(".dropdown");
+  const dropdownMenu = document.querySelector(".dropdown-menu");
+  const imageClick = document.querySelector(".image");
+
+  imageClick.addEventListener("click", function () {
+    if (dropdownMenu.style.display === "block") {
+        dropdownMenu.style.display = "none";
+    } else {
+        dropdownMenu.style.display = "block";
+    }
 });

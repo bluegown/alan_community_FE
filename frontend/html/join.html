@@ -31,25 +31,31 @@
     
 
     <div class = "functions">
-        <form method = "post" class = "join-form">
+        <form method = "post" class = "join-form" enctype="multipart/form-data">
             프로필 사진
             <br>
             <div style = "height : 5px;"></div>
             <button class = "helpertext" style = "color:#FF0000; font-size:12px; font-weight:lighter;">* helper text</button>
 
 
+            
         <div class = "for-buttons">
-            <label class = "button-upload" for = "input-file">
-                +
-                <input type="file" id="input-file"/> <!-- 기존 파일 선택 부분 숨김 -->
-            </label> <!-- 이부분이 원과 +를 그리는 부분이지..-->
+            <div class="prf-img">
+                <input name = "image"
+                  class="image"
+                  id="fileupload"
+                  type="file"
+                  accept=".jpg,.png"
+                />
+                <label id="fileupload-label" for="fileupload"></label>
+              </div>
         </div>
             <br>
 
             이메일*
             <br>
             <div style = "height : 10px;"></div>
-            <input name = 'userid' id = 'userid' type = 'text' placeholder = "이메일을 입력하세요" style = "width: 361px; height:30px;"/><br>
+            <input name = 'userId' id = 'userId' type = 'text' placeholder = "이메일을 입력하세요" style = "width: 361px; height:30px;"/><br>
             <div style = "height : 10px;"></div>
             <a class = "helpertext" id = "emailText" style = "color:#FF0000; font-size:12px; font-weight:lighter;">* helper text</a>
             <div style = "height : 10px;"></div>

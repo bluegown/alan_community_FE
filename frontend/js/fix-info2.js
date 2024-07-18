@@ -111,3 +111,14 @@ const checkPassword =(password) => {
 
   });
 
+  const dropdown = document.querySelector(".dropdown");
+  const dropdownMenu = document.querySelector(".dropdown-menu");
+  const imageClick = document.querySelector(".image");
+
+  imageClick.addEventListener("click", function () {
+    if (dropdownMenu.style.display === "block") {
+        dropdownMenu.style.display = "none";
+    } else {
+        dropdownMenu.style.display = "block";
+    }
+});
